@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D · Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#3EE6E0}a:hover{color:#9FF5F2}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0B0D1E; font-family: 'Chakra Petch', sans-serif; color: #EEF0FF; overflow: hidden; padding: 16px 16px 0; display: flex; flex-direction: column; gap: 12px">
+
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <div style="display: flex; align-items: center; gap: 10px">
+      <svg width="42" height="42" viewBox="0 0 46 46" role="img" aria-label="Rank badge: green belt">
+        <rect x="3" y="3" width="40" height="40" rx="8" fill="#151936" stroke="#3EE6E0" stroke-width="2"></rect>
+        <rect x="8" y="20" width="30" height="7" rx="2" fill="#34D399"></rect>
+        <path d="M23 27 l-5 10 M23 27 l5 10" stroke="#34D399" stroke-width="4" stroke-linecap="round"></path>
+      </svg>
+      <div style="display: flex; flex-direction: column">
+        <span style="font-weight: 700; font-size: 17px; letter-spacing: 1.5px">HUNTER</span>
+        <span style="font-size: 12px; color: #A3A8D0">Rank 3 of 7 · green belt</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px">
+      <span style="display: flex; align-items: center; gap: 5px; border: 1px solid #FFC857; border-radius: 8px; padding: 5px 9px; color: #FFC857; font-weight: 700; font-size: 14px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFC857" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-3-1-5 0-8z"></path></svg>12
+      </span>
+      <span style="display: flex; align-items: center; gap: 5px; border: 1px solid #2A2F5A; border-radius: 8px; padding: 5px 9px; color: #C9B8FF; font-weight: 700; font-size: 14px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9B8FF" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l7 10-7 10-7-10z"></path></svg>840
+      </span>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; background: #151936; border: 1px solid #2A2F5A; border-radius: 10px; box-shadow: 0 6px 0 #05060F; padding: 10px 12px">
+    <svg width="76" height="86" viewBox="0 0 76 86" role="img" aria-label="Your shadow companion, a hooded silhouette with glowing eyes">
+      <ellipse cx="38" cy="80" rx="26" ry="4" fill="#3EE6E0" opacity="0.25"></ellipse>
+      <path d="M10 80 L16 30 Q38 -2 60 30 L66 80 Q52 72 38 80 Q24 72 10 80 Z" fill="#1E2247" stroke="#3EE6E0" stroke-width="1.5"></path>
+      <path d="M24 36 Q38 22 52 36 L50 54 Q38 60 26 54 Z" fill="#05060F"></path>
+      <path d="M29 43 l7 3" stroke="#3EE6E0" stroke-width="3.5" stroke-linecap="round"></path>
+      <path d="M47 43 l-7 3" stroke="#3EE6E0" stroke-width="3.5" stroke-linecap="round"></path>
+    </svg>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 14px; line-height: 1.35; color: #EEF0FF">“Three creatures stir tonight. The Gate of Multiplication III is ready.”</span>
+      <div style="display: flex; flex-direction: column; gap: 3px">
+        <div style="height: 8px; background: #0B0D1E; border-radius: 4px; overflow: hidden"><div style="width: 62%; height: 100%; background: #3EE6E0; box-shadow: 0 0 8px #3EE6E0"></div></div>
+        <span style="font-size: 11px; color: #A3A8D0">Ascension to Warden: 2 / 3 requirements</span>
+      </div>
+    </div>
+  </div>
+
+  <span style="font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #A3A8D0">TONIGHT</span>
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <sc-for list="{{challenges}}" as="c" hint-placeholder-count="3">
+      <a href="{{c.href}}" style="text-decoration: none; display: flex; align-items: center; gap: 12px; background: #151936; border: 1px solid {{c.color}}; border-radius: 10px; box-shadow: 0 5px 0 #05060F; padding: 9px 12px; color: #EEF0FF">
+        <span style="width: 34px; height: 34px; border-radius: 8px; background: {{c.color}}; color: #0B0D1E; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center">{{c.glyph}}</span>
+        <span style="flex-grow: 1; display: flex; flex-direction: column">
+          <span style="font-weight: 700; font-size: 15px; color: #EEF0FF">{{c.name}}</span>
+          <span style="font-size: 12px; color: #A3A8D0">{{c.why}}</span>
+        </span>
+        <span style="font-weight: 700; font-size: 13px; color: {{c.text}}">{{c.cta}}</span>
+      </a>
+    </sc-for>
+  </div>
+
+  <span style="font-weight: 700; font-size: 12px; letter-spacing: 2px; color: #A3A8D0">TRAINING GROUNDS · ALL OPEN</span>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 12px">
+    <sc-for list="{{drills}}" as="d" hint-placeholder-count="6">
+      <a href="D-Drill.dc.html" style="text-decoration: none; border-radius: 10px; overflow: hidden; border: 1px solid #2A2F5A; box-shadow: 0 6px 0 #05060F; display: flex; flex-direction: column; color: #EEF0FF">
+        <span style="height: 62px; background: #151936; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 28px; color: #3EE6E0; text-shadow: 0 0 12px rgba(62,230,224,0.5)">{{d.glyph}}</span>
+        <span style="background: #1E2247; padding: 7px 10px; display: flex; flex-direction: column; gap: 5px">
+          <span style="display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; letter-spacing: 0.5px; color: #EEF0FF"><span>{{d.name}}</span><span style="color: #3EE6E0">{{d.lvl}}</span></span>
+          <span style="display: flex; gap: 3px">
+            <sc-for list="{{d.pips}}" as="p" hint-placeholder-count="5">
+              <span style="flex-grow: 1; height: 4px; border-radius: 2px; background: {{p.bg}}"></span>
+            </sc-for>
+          </span>
+        </span>
+      </a>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pips = (n, cur) => [1, 2, 3, 4, 5].map((i) => ({ bg: i <= n ? '#3EE6E0' : i === cur ? '#2E7F83' : '#2A2F5A' }));
+    return {
+      challenges: [
+        { name: 'Night Watch', why: '24 cards due · keeps your 12-day streak', cta: '3 MIN', glyph: '☾', color: '#FFC857', text: '#FFC857', href: 'D-Quiz.dc.html' },
+        { name: 'Gate · Multiplication III', why: 'Ready: mastery 20 / 20', cta: 'OPEN', glyph: '⌂', color: '#3EE6E0', text: '#3EE6E0', href: 'D-Gate.dc.html' },
+        { name: 'Hunt · The Carry-Eater', why: 'Beast · 14 misses this fortnight', cta: 'HUNT', glyph: '✶', color: '#FF4F9A', text: '#FF8CBC', href: 'D-Bestiary.dc.html' }
+      ],
+      drills: [
+        { glyph: '+ −', name: 'ADD · SUB', lvl: 'IV', pips: pips(3, 4) },
+        { glyph: '×', name: 'MULTIPLY', lvl: 'III', pips: pips(2, 3) },
+        { glyph: '÷', name: 'DIVIDE', lvl: 'II', pips: pips(1, 2) },
+        { glyph: 'x² √', name: 'SQUARES', lvl: 'III', pips: pips(2, 3) },
+        { glyph: '¾ %', name: 'FRACTIONS', lvl: 'I', pips: pips(0, 1) },
+        { glyph: '97×96', name: 'VEDIC', lvl: 'II', pips: pips(1, 2) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D · Quiz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#3EE6E0}a:hover{color:#9FF5F2}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0B0D1E; font-family: 'Chakra Petch', sans-serif; color: #EEF0FF; overflow: hidden; padding: 16px 16px 22px; display: flex; flex-direction: column; gap: 12px">
+
+  <div style="display: flex; align-items: center; gap: 12px">
+    <a href="D-Drill.dc.html" aria-label="Leave training" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #2A2F5A; display: flex; align-items: center; justify-content: center">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EEF0FF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </a>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px">
+      <span style="font-weight: 700; font-size: 12px; letter-spacing: 1.5px; color: #FFC857">TRAINING · MULTIPLY III · SET OF 20</span>
+      <div style="display: flex; gap: 3px">
+        <sc-for list="{{segs}}" as="g" hint-placeholder-count="20">
+          <div style="flex-grow: 1; height: 6px; border-radius: 2px; background: {{g.bg}}"></div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <span style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 15px; color: #C9B8FF">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C9B8FF" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l7 10-7 10-7-10z"></path></svg>
+      +{{essence}}
+    </span>
+    <span style="display: flex; align-items: center; gap: 8px">
+      <span style="font-weight: 700; font-size: 13px; letter-spacing: 1px; color: #A3A8D0">COMBO</span>
+      <span style="display: flex; gap: 3px">
+        <sc-for list="{{comboPips}}" as="p" hint-placeholder-count="10">
+          <span style="width: 9px; height: 16px; border-radius: 2px; background: {{p.bg}}; box-shadow: {{p.glow}}"></span>
+        </sc-for>
+      </span>
+      <span style="font-weight: 700; font-size: 16px; color: #3EE6E0">×{{mult}}</span>
+    </span>
+  </div>
+
+  <div style="background: #151936; border: 1px solid {{cardBorder}}; border-radius: 12px; box-shadow: 0 8px 0 #05060F; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+    <span style="font-weight: 700; font-size: 70px; line-height: 1; letter-spacing: 2px">{{a}} × {{b}}</span>
+    <span style="min-width: 160px; height: 60px; box-sizing: border-box; border-radius: 10px; background: #0B0D1E; border: 2px solid {{cardBorder}}; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 40px; color: {{ansColor}}; text-shadow: 0 0 12px {{ansGlow}}">{{shown}}</span>
+  </div>
+
+  <div style="min-height: 40px; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 600; font-size: 14px; line-height: 1.3; color: {{fbColor}}">{{feedback}}</div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: auto">
+    <sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+      <button onClick="{{k.press}}" aria-label="{{k.label}}" style="height: 64px; border-radius: 10px; border: 1px solid {{k.border}}; background: {{k.bg}}; box-shadow: 0 6px 0 {{k.shadow}}; color: {{k.fg}}; font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 28px; cursor: pointer">{{k.text}}</button>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { a: 7, b: 8, input: '', combo: 6, essence: 34, done: 11, misses: [4], status: 'idle', feedback: 'Type your answer — it submits itself when right.' };
+  }
+  gen() {
+    const pool = [6, 7, 8, 9, 11, 12];
+    return { a: pool[Math.floor(Math.random() * pool.length)], b: 3 + Math.floor(Math.random() * 10) };
+  }
+  press(key) {
+    const s = this.state, ans = String(s.a * s.b);
+    if (key === 'del') { this.setState({ input: s.input.slice(0, -1), status: 'idle' }); return; }
+    if (key === 'ok') {
+      if (s.input === '') return;
+      if (s.input === ans) this.right();
+      else this.miss(ans);
+      return;
+    }
+    const input = (s.input + key).slice(0, 4);
+    if (input === ans) { this.setState({ input: input }); setTimeout(() => this.right(), 160); }
+    else this.setState({ input: input, status: 'idle' });
+  }
+  miss(ans) {
+    const s = this.state;
+    const who = (s.a === 7 || s.a === 8) ? 'The Seven-Eight Shade' : 'A Whisper';
+    this.setState({ status: 'wrong', combo: 0, input: '', misses: s.misses.concat([s.done]), feedback: s.a + ' × ' + s.b + ' = ' + ans + ' · ' + who + ' feeds on this mistake' });
+  }
+  right() {
+    const s = this.state;
+    const combo = Math.min(s.combo + 1, 10);
+    const gain = 2 + Math.floor(combo / 3);
+    const n = this.gen();
+    this.setState({ a: n.a, b: n.b, input: '', status: 'right', combo: combo, essence: s.essence + gain, done: s.done >= 20 ? 1 : s.done + 1, misses: s.done >= 20 ? [] : s.misses, feedback: 'Clean strike · +' + gain + ' Essence' });
+  }
+  renderVals() {
+    const s = this.state;
+    const mk = (k, text, label, kind) => ({
+      text: text, label: label, press: () => this.press(k),
+      bg: kind === 'ok' ? '#3EE6E0' : kind === 'del' ? '#0B0D1E' : '#1E2247',
+      border: kind === 'ok' ? '#3EE6E0' : '#2A2F5A',
+      shadow: kind === 'ok' ? '#1C7F7B' : '#05060F',
+      fg: kind === 'ok' ? '#0B0D1E' : '#EEF0FF'
+    });
+    const keys = ['1','2','3','4','5','6','7','8','9'].map((d) => mk(d, d, d, 'n'));
+    keys.push(mk('del', '⌫', 'Delete', 'del'), mk('0', '0', '0', 'n'), mk('ok', '✓', 'Submit', 'ok'));
+    const segs = [];
+    for (let i = 1; i <= 20; i++) segs.push({ bg: s.misses.indexOf(i) >= 0 ? '#FF4F9A' : i < s.done ? '#3EE6E0' : i === s.done ? '#FFC857' : '#2A2F5A' });
+    const comboPips = [];
+    for (let i = 1; i <= 10; i++) comboPips.push({ bg: i <= s.combo ? '#3EE6E0' : '#2A2F5A', glow: i <= s.combo ? '0 0 6px rgba(62,230,224,0.7)' : 'none' });
+    const wrong = s.status === 'wrong';
+    return {
+      a: s.a, b: s.b, essence: s.essence, segs: segs, comboPips: comboPips,
+      mult: (1 + s.combo / 10).toFixed(1),
+      shown: s.input === '' ? '?' : s.input,
+      cardBorder: wrong ? '#FF4F9A' : s.status === 'right' ? '#3EE6E0' : '#2A2F5A',
+      ansColor: wrong ? '#FF8CBC' : '#3EE6E0',
+      ansGlow: wrong ? 'rgba(255,79,154,0.6)' : 'rgba(62,230,224,0.5)',
+      feedback: s.feedback,
+      fbColor: wrong ? '#FF8CBC' : s.status === 'right' ? '#34D399' : '#A3A8D0',
+      keys: keys
+    };
+  }
+}
+</script>
+</body>
+</html>

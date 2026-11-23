@@ -5,7 +5,8 @@
 - [x] Step 2 — 3 design variants: canvas https://claude.ai/artifact/F7ZyvgWqCuWwCCbtiDZbiy (source in `design/canvas/`)
 
 ## Next
-- [ ] User picks a design variant (or a mix) → write `docs/DESIGN.md`
+- [x] Design v2 "D · Shadow Dojo" (C + A, all drills open, Gates, Bestiary, Nightmare, Ascension) on the canvas
+- [ ] User reviews D → write `docs/DESIGN.md`, `docs/GAMIFICATION.md` (challenge classes), `docs/LORE.md`
 - [ ] User adds the extra items they mentioned → update VISION/CURRICULUM
 - [ ] Decide stack: Flutter (fast UI, MIT/BSD ecosystem, MathFinity reference) vs
       Kotlin + Jetpack Compose (native, Braincup reference)

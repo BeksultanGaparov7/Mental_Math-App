@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D · Nightmare Trial</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#FF8CBC}a:hover{color:#FFC2DA}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #12061A; font-family: 'Chakra Petch', sans-serif; color: #EEF0FF; overflow: hidden; padding: 16px 16px 22px; display: flex; flex-direction: column; gap: 14px">
+
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <a href="D-Bestiary.dc.html" aria-label="Back to bestiary" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #4A1F44; display: flex; align-items: center; justify-content: center">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EEF0FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </a>
+    <span style="border: 1px solid #4A1F44; border-radius: 8px; padding: 5px 10px; font-weight: 600; font-size: 12px; letter-spacing: 1px; color: #C9A9C9">1 trial per night · available</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+    <span style="font-weight: 600; font-size: 12px; letter-spacing: 3px; color: #FF8CBC">THE NIGHTMARE CALLS</span>
+    <h1 style="margin: 0; font-weight: 700; font-size: 40px; letter-spacing: 3px; text-shadow: 0 0 18px rgba(255,79,154,0.7)">NIGHTMARE</h1>
+    <span style="font-size: 13px; color: #C9A9C9">Three creatures, one fight</span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+    <sc-for list="{{foes}}" as="f" hint-placeholder-count="3">
+      <div style="background: #1E0A2A; border: 1px solid {{f.color}}; border-radius: 10px; box-shadow: 0 5px 0 #070209; padding: 10px 6px; display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center">
+        <svg width="56" height="56" viewBox="0 0 44 44" aria-hidden="true">
+          <path d="M6 40 Q4 14 22 6 Q40 14 38 40 L32 34 L27 40 L22 34 L17 40 L12 34 Z" fill="#12061A" stroke="{{f.color}}" stroke-width="2"></path>
+          <path d="M14 20 l6 3" stroke="{{f.color}}" stroke-width="3" stroke-linecap="round"></path>
+          <path d="M30 20 l-6 3" stroke="{{f.color}}" stroke-width="3" stroke-linecap="round"></path>
+        </svg>
+        <span style="font-weight: 700; font-size: 12px; line-height: 1.2">{{f.name}}</span>
+        <span style="border-radius: 4px; padding: 1px 6px; font-weight: 700; font-size: 10px; letter-spacing: 1px; background: {{f.color}}; color: {{f.chipText}}">{{f.rank}}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="background: #1E0A2A; border: 1px solid #4A1F44; border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 7px">
+    <sc-for list="{{rules}}" as="r" hint-placeholder-count="4">
+      <div style="display: flex; justify-content: space-between; font-size: 14px"><span style="color: #C9A9C9">{{r.k}}</span><span style="font-weight: 700; color: {{r.c}}">{{r.v}}</span></div>
+    </sc-for>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <div style="border: 1px solid #3EE6E0; border-radius: 10px; padding: 10px 12px"><div style="font-size: 12px; color: #A3A8D0">WIN</div><div style="font-weight: 700; font-size: 14px; color: #9FF5F2">All 3 banished · +250 Essence · Relic</div></div>
+    <div style="border: 1px solid #4A1F44; border-radius: 10px; padding: 10px 12px"><div style="font-size: 12px; color: #A3A8D0">LOSE</div><div style="font-weight: 700; font-size: 14px; color: #FF8CBC">Creatures +1 rank · retry tomorrow</div></div>
+  </div>
+
+  <a href="D-Quiz.dc.html" style="margin-top: auto; text-decoration: none; background: #FF4F9A; color: #12061A; border-radius: 10px; box-shadow: 0 7px 0 #8A1F52, 0 0 24px rgba(255,79,154,0.5); height: 62px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; letter-spacing: 3px">ENTER THE NIGHTMARE</a>
+  <a href="D-Bestiary.dc.html" style="text-align: center; font-weight: 600; font-size: 14px">Not ready? Hunt them one by one first</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      foes: [
+        { name: 'The Carry-Eater', rank: 'HORROR', color: '#FF4F9A', chipText: '#12061A' },
+        { name: 'Seven-Eight Shade', rank: 'BEAST', color: '#C43E84', chipText: '#FFFFFF' },
+        { name: 'Zero-Borrow Wraith', rank: 'BEAST', color: '#C43E84', chipText: '#FFFFFF' }
+      ],
+      rules: [
+        { k: 'Rounds', v: '20 (14 targeted, 6 decoys)', c: '#EEF0FF' },
+        { k: 'Lives', v: '♥ ♥ ♥', c: '#FF8CBC' },
+        { k: 'Hints', v: 'none', c: '#EEF0FF' },
+        { k: 'Unlocked because', v: '3 creatures at Beast+', c: '#EEF0FF' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
