@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A · Insights</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&amp;family=Nunito:wght@600;800;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#FFFFFF}a:hover{color:#E9E4FB}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #1C1B22; font-family: Nunito, sans-serif; color: #2A1B6B; overflow: hidden; padding: 16px 18px; display: flex; flex-direction: column; gap: 16px">
+
+  <div style="display: flex; align-items: center; gap: 12px">
+    <a href="Main.dc.html" aria-label="Back to home" style="width: 44px; height: 44px; border-radius: 12px; background: #2B2933; display: flex; align-items: center; justify-content: center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </a>
+    <h1 style="margin: 0; font-family: 'Lilita One', sans-serif; font-weight: 400; font-size: 30px; color: #FFFFFF">MY MISTAKES</h1>
+  </div>
+
+  <div style="background: #E9E4FB; border-radius: 6px; box-shadow: 0 6px 0 #A79BD9; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <h2 style="margin: 0; font-family: 'Lilita One', sans-serif; font-weight: 400; font-size: 19px">TOP PATTERNS</h2>
+      <span style="font-weight: 800; font-size: 12px">last 14 days</span>
+    </div>
+    <sc-for list="{{patterns}}" as="p" hint-placeholder-count="5">
+      <div style="display: flex; flex-direction: column; gap: 3px">
+        <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 13px"><span>{{p.name}}</span><span>{{p.n}}</span></div>
+        <div style="height: 12px; background: #CFC6F2; border-radius: 6px; overflow: hidden"><div style="width: {{p.w}}; height: 100%; background: #C9492A; border-radius: 6px"></div></div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="background: #D6F3E4; border-radius: 6px; box-shadow: 0 6px 0 #8DC9A9; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <h2 style="margin: 0; font-family: 'Lilita One', sans-serif; font-weight: 400; font-size: 19px">TIMES-TABLE HEAT</h2>
+      <span style="font-weight: 800; font-size: 12px">darker = more misses</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 3px">
+      <sc-for list="{{heat}}" as="c" hint-placeholder-count="81">
+        <div style="height: 26px; border-radius: 4px; background: {{c.bg}}; color: {{c.fg}}; font-weight: 900; font-size: 11px; display: flex; align-items: center; justify-content: center">{{c.t}}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <a href="A-Nightmare.dc.html" style="text-decoration: none; background: #2A1B6B; color: #FFFFFF; border-radius: 6px; box-shadow: 0 6px 0 #0F0830; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center">
+    <span style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-family: 'Lilita One', sans-serif; font-size: 21px; color: #FFFFFF">NIGHTMARE TRIAL READY</span>
+      <span style="font-weight: 800; font-size: 13px; color: #CFC6F2">Built from your top 3 patterns</span>
+    </span>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+  </a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const patterns = [
+      { name: 'Carry missed in tens column', n: 14 },
+      { name: 'Fact family 7 × 8 / 56 ÷ 7', n: 9 },
+      { name: 'Borrow across a zero', n: 7 },
+      { name: 'Neighbour-table answer (54 for 7×8)', n: 6 },
+      { name: 'Slow: squares 21–30', n: 4 }
+    ].map((p) => Object.assign(p, { w: Math.round(p.n / 14 * 100) + '%' }));
+    const hot = { '7x8': 4, '8x7': 4, '6x8': 3, '8x6': 3, '7x6': 3, '6x7': 2, '9x7': 3, '7x9': 3, '8x9': 2, '9x8': 2, '6x9': 1, '7x7': 1, '8x8': 1, '4x7': 1 };
+    const shades = ['#F4FBF7', '#F2C3B4', '#E8704F', '#C9492A', '#8F2F18'];
+    const heat = [];
+    heat.push({ t: '×', bg: 'transparent', fg: '#2A1B6B' });
+    for (let c = 2; c <= 9; c++) heat.push({ t: c, bg: 'transparent', fg: '#2A1B6B' });
+    for (let r = 2; r <= 9; r++) {
+      heat.push({ t: r, bg: 'transparent', fg: '#2A1B6B' });
+      for (let c = 2; c <= 9; c++) {
+        const v = hot[r + 'x' + c] || 0;
+        heat.push({ t: r * c, bg: shades[v], fg: v >= 2 ? '#FFFFFF' : '#2A1B6B' });
+      }
+    }
+    return { patterns: patterns, heat: heat };
+  }
+}
+</script>
+</body>
+</html>

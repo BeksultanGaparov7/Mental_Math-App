@@ -1,0 +1,22 @@
+{"v":3,"createdOnFiles":{"v":1,"at":"2026-11-23T12:00:00Z"},"title":"Mental Math App – 3 design variants","launch":{"view":"canvas"},"pages":[],
+"boards":{
+"Main.dc.html":{"x":0,"y":0,"w":390,"h":844,"title":"A · Home"},
+"A-Quiz.dc.html":{"x":470,"y":0,"w":390,"h":844,"title":"A · Quiz (playable)","is_interactive":true},
+"A-Insights.dc.html":{"x":940,"y":0,"w":390,"h":844,"title":"A · Insights"},
+"A-Nightmare.dc.html":{"x":1410,"y":0,"w":390,"h":844,"title":"A · Nightmare Trial"},
+"B-Home.dc.html":{"x":0,"y":1300,"w":390,"h":844,"title":"B · Home"},
+"B-Quiz.dc.html":{"x":470,"y":1300,"w":390,"h":844,"title":"B · Quiz (playable)","is_interactive":true},
+"B-Insights.dc.html":{"x":940,"y":1300,"w":390,"h":844,"title":"B · Insights"},
+"B-Nightmare.dc.html":{"x":1410,"y":1300,"w":390,"h":844,"title":"B · Nightmare Trial"},
+"C-Home.dc.html":{"x":0,"y":2600,"w":390,"h":844,"title":"C · Home"},
+"C-Quiz.dc.html":{"x":470,"y":2600,"w":390,"h":844,"title":"C · Quiz (playable)","is_interactive":true},
+"C-Insights.dc.html":{"x":940,"y":2600,"w":390,"h":844,"title":"C · Insights"},
+"C-Nightmare.dc.html":{"x":1410,"y":2600,"w":390,"h":844,"title":"C · Nightmare Trial"}
+},
+"order":["Main.dc.html","A-Quiz.dc.html","A-Insights.dc.html","A-Nightmare.dc.html","B-Home.dc.html","B-Quiz.dc.html","B-Insights.dc.html","B-Nightmare.dc.html","C-Home.dc.html","C-Quiz.dc.html","C-Insights.dc.html","C-Nightmare.dc.html"],
+"notes":{
+"tA":{"x":0,"y":-300,"text":"A · Chunky Arcade — playful 3D tiles, dark frame","kind":"title1","maxW":1800},
+"tB":{"x":0,"y":1000,"text":"B · Calm Focus — light, minimal, data-first","kind":"title1","maxW":1800},
+"tC":{"x":0,"y":2300,"text":"C · Neon Dojo — belts, skill path, high drama","kind":"title1","maxW":1800}
+},
+"designSystems":[]}

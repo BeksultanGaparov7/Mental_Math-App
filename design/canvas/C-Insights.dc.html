@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>C · Insights</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#3EE6E0}a:hover{color:#9FF5F2}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0E1022; font-family: 'Chakra Petch', sans-serif; color: #EEF0FF; overflow: hidden; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+
+  <div style="display: flex; align-items: center; gap: 12px">
+    <a href="C-Home.dc.html" aria-label="Back to home" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #2A2F5A; display: flex; align-items: center; justify-content: center">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EEF0FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </a>
+    <h1 style="margin: 0; font-weight: 700; font-size: 24px; letter-spacing: 2px">WEAK POINTS</h1>
+  </div>
+
+  <div style="border: 1px solid #2A2F5A; border-radius: 12px; background: #171A33; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+    <span style="font-weight: 700; font-size: 13px; letter-spacing: 1.5px; color: #A3A8D0">PATTERNS · 14 DAYS</span>
+    <sc-for list="{{patterns}}" as="p" hint-placeholder-count="5">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 14px"><span>{{p.name}}</span><span style="color: {{p.trendColor}}">{{p.trend}}</span></div>
+        <div style="height: 8px; background: #0E1022; border-radius: 2px; overflow: hidden"><div style="width: {{p.w}}; height: 100%; background: #FF4F9A; box-shadow: 0 0 8px #FF4F9A"></div></div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="border: 1px solid #2A2F5A; border-radius: 12px; background: #171A33; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+    <span style="font-weight: 700; font-size: 13px; letter-spacing: 1.5px; color: #A3A8D0">COMBAT LOG · LAST MISSES</span>
+    <sc-for list="{{log}}" as="l" hint-placeholder-count="5">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 15px; padding: 4px 0; border-bottom: 1px solid #22264A">
+        <span style="width: 92px; font-weight: 700">{{l.q}}</span>
+        <span style="width: 54px; color: #FF8CBC; text-decoration: line-through">{{l.given}}</span>
+        <span style="width: 54px; color: #3EE6E0; font-weight: 700">{{l.right}}</span>
+        <span style="flex-grow: 1; text-align: right; font-size: 12px; color: #A3A8D0">{{l.tag}}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <a href="C-Nightmare.dc.html" style="margin-top: auto; text-decoration: none; border: 2px solid #FF4F9A; border-radius: 10px; height: 58px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #FF8CBC; font-weight: 700; font-size: 18px; letter-spacing: 2px; box-shadow: 0 0 16px rgba(255,79,154,0.35)">FACE THE NIGHTMARE</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const up = '#FF8CBC', down = '#34D399';
+    const patterns = [
+      { name: 'Carry in tens column', n: 14, trend: '▲ 3', trendColor: up },
+      { name: '7 × 8 fact family', n: 9, trend: '▼ 2', trendColor: down },
+      { name: 'Borrow across zero', n: 7, trend: '▲ 1', trendColor: up },
+      { name: 'Neighbour-table answer', n: 6, trend: '▼ 4', trendColor: down },
+      { name: 'Place-value shift (×10)', n: 4, trend: '= 0', trendColor: '#A3A8D0' }
+    ].map((p) => Object.assign(p, { w: Math.round(p.n / 14 * 100) + '%' }));
+    const log = [
+      { q: '47 + 38', given: '75', right: '85', tag: 'carry missed' },
+      { q: '7 × 8', given: '54', right: '56', tag: 'neighbour table' },
+      { q: '403 − 128', given: '385', right: '275', tag: 'borrow at zero' },
+      { q: '35 × 20', given: '7000', right: '700', tag: 'place value' },
+      { q: '96 × 97', given: '9302', right: '9312', tag: 'right part' }
+    ];
+    return { patterns: patterns, log: log };
+  }
+}
+</script>
+</body>
+</html>

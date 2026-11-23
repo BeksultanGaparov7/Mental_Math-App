@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A · Quiz</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&amp;family=Nunito:wght@600;800;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#FFFFFF}a:hover{color:#E9E4FB}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #1C1B22; font-family: Nunito, sans-serif; color: #FFFFFF; overflow: hidden; padding: 16px 18px 22px; display: flex; flex-direction: column; gap: 14px">
+
+  <div style="display: flex; align-items: center; gap: 12px">
+    <a href="Main.dc.html" aria-label="Back to home" style="width: 44px; height: 44px; border-radius: 12px; background: #2B2933; display: flex; align-items: center; justify-content: center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </a>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px">
+      <span style="font-weight: 900; font-size: 13px; color: #CFC6F2">MULTIPLY · L2 · SET OF 20</span>
+      <div style="height: 10px; background: #2B2933; border-radius: 5px; overflow: hidden"><div style="width: {{progressPct}}; height: 100%; background: #7FD8A8"></div></div>
+    </div>
+    <span style="font-family: 'Lilita One', sans-serif; font-size: 20px; color: #FFD27A">0:42</span>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <span style="font-weight: 900; font-size: 15px; color: #CFC6F2">{{count}} / 20</span>
+    <span style="font-family: 'Lilita One', sans-serif; font-size: 18px; background: #7C6CF0; border-radius: 10px; padding: 4px 12px; box-shadow: 0 4px 0 #4B3CB8">COMBO ×{{combo}}</span>
+    <span style="font-weight: 900; font-size: 15px; color: #FFD27A">+{{xp}} XP</span>
+  </div>
+
+  <div style="background: #E9E4FB; border-radius: 6px; box-shadow: 0 8px 0 #A79BD9; height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #2A1B6B">
+    <span style="font-family: 'Lilita One', sans-serif; font-size: 72px; line-height: 1">{{a}} × {{b}}</span>
+    <span style="min-width: 150px; height: 58px; box-sizing: border-box; border-radius: 10px; background: #FFFFFF; border: 3px solid {{boxBorder}}; font-family: 'Lilita One', sans-serif; font-size: 40px; display: flex; align-items: center; justify-content: center; padding: 0 14px">{{shown}}</span>
+  </div>
+
+  <div style="height: 24px; text-align: center; font-weight: 900; font-size: 16px; color: {{fbColor}}">{{feedback}}</div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: auto">
+    <sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+      <button onClick="{{k.press}}" aria-label="{{k.label}}" style="height: 70px; border: 0; border-radius: 8px; background: {{k.bg}}; box-shadow: 0 6px 0 {{k.shadow}}; color: {{k.fg}}; font-family: 'Lilita One', sans-serif; font-size: 32px; cursor: pointer">{{k.text}}</button>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { a: 7, b: 8, input: '', combo: 5, xp: 160, count: 12, feedback: 'Type the answer', status: 'idle' };
+  }
+  next(st) {
+    const a = 6 + Math.floor(Math.random() * 4);
+    const b = 2 + Math.floor(Math.random() * 8);
+    return Object.assign({}, st, { a: a, b: b, input: '' });
+  }
+  press(key) {
+    const s = this.state;
+    const ans = String(s.a * s.b);
+    if (key === 'del') { this.setState({ input: s.input.slice(0, -1), status: 'idle' }); return; }
+    if (key === 'ok') {
+      if (s.input === '') return;
+      if (s.input === ans) { this.correct(); }
+      else { this.setState({ status: 'wrong', combo: 1, feedback: s.a + ' × ' + s.b + ' = ' + ans + '  (logged as a miss)', input: '' }); }
+      return;
+    }
+    const input = (s.input + key).slice(0, 4);
+    if (input === ans) { this.setState({ input: input }); setTimeout(() => this.correct(), 180); }
+    else this.setState({ input: input, status: 'idle' });
+  }
+  correct() {
+    const s = this.state;
+    const combo = Math.min(s.combo + 1, 10);
+    const gain = Math.round(12 * (1 + combo / 10));
+    this.setState(this.next({ status: 'right', combo: combo, xp: s.xp + gain, count: s.count >= 20 ? 1 : s.count + 1, feedback: 'Nice! +' + gain + ' XP' }));
+  }
+  renderVals() {
+    const s = this.state;
+    const mk = (k, text, label, kind) => ({
+      text: text, label: label, press: () => this.press(k),
+      bg: kind === 'ok' ? '#3FA56E' : kind === 'del' ? '#2B2933' : '#E8704F',
+      shadow: kind === 'ok' ? '#1F6B42' : kind === 'del' ? '#100F14' : '#8F2F18',
+      fg: '#FFFFFF'
+    });
+    const keys = ['1','2','3','4','5','6','7','8','9'].map((d) => mk(d, d, d, 'n'));
+    keys.push(mk('del', '⌫', 'Delete', 'del'), mk('0', '0', '0', 'n'), mk('ok', '✓', 'Submit', 'ok'));
+    return {
+      a: s.a, b: s.b, combo: s.combo, xp: s.xp, count: s.count,
+      progressPct: Math.round(s.count / 20 * 100) + '%',
+      shown: s.input === '' ? '?' : s.input,
+      boxBorder: s.status === 'wrong' ? '#C9492A' : s.status === 'right' ? '#3FA56E' : '#CFC6F2',
+      feedback: s.feedback,
+      fbColor: s.status === 'wrong' ? '#FF9B85' : s.status === 'right' ? '#7FD8A8' : '#CFC6F2',
+      keys: keys
+    };
+  }
+}
+</script>
+</body>
+</html>
